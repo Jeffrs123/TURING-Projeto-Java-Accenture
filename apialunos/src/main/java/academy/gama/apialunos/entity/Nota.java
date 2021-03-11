@@ -25,19 +25,19 @@ public class Nota {
 	private Long id;
 	
 	@Column
-	private float nota_um;
+	private double nota_um;
 	
 	@Column
-	private float nota_dois;
+	private double nota_dois;
 	
 	@Column
-	private float nota_apresentacao;
+	private double nota_apresentacao;
 	
 	@Column
-	private float nota_trabalho;
+	private double nota_trabalho;
 	
 	@Column
-	private float media_conceito;
+	private double media_conceito;
 	
 	@Column
 	private StatusAprovacao statusAprovacao;
@@ -48,12 +48,14 @@ public class Nota {
 	@OneToOne
 	private Disciplina disciplina;
 
-	public float getMedia_conceito() {
-		return Math.round(media_conceito);
+	public double getMedia_conceito() {
+//		return Math.round(media_conceito);
+		return media_conceito;
 	}
 
 	private void setMedia_conceito() {
-		this.media_conceito = (nota_um + nota_dois + nota_apresentacao + nota_trabalho) / 4;
+		float num = 4;
+		this.media_conceito = (nota_um + nota_dois + nota_apresentacao + nota_trabalho) / num;
 	}
 	
 	private void setStatusAprovacao() {

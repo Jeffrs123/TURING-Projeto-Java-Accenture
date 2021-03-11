@@ -38,9 +38,25 @@ public class AlunoController {
 		return alunoService.create(itemDTO);
 	}
 
+	/**
+	 * Retornar lista de alunos, se o parâmetro nome for passado na queryparam essa lista será filtrada.
+	 * @param nome a ser pesquisado
+	 * @return lista de alunos. Se conter a chave aluno, retornará uma lista filtrada, podendo conter tal valor no começo, meio e/ou fim do nome.
+	 * 
+	 * <pre>
+	 * {@code
+	 * 
+	 * 	// Retornar lista de alunos
+	 * http://localhost:8080//api/v1/alunos
+	 * 
+	 * // Retornar lista de alunos filtrado por queryParams
+	 * http://localhost:8080//api/v1/alunos?nome=jef
+	 * http://localhost:8080//api/v1/alunos?nome=on
+	 * http://localhost:8080//api/v1/alunos?nome=jefferson
+	 * }</pre>
+	 */
 	@GetMapping
 	public List<AlunoDTO> getAll(@RequestParam(required = false) String nome) {
-		System.out.println("nome: " + nome);
 		return alunoService.listAll(nome);
 	}
 
@@ -50,9 +66,9 @@ public class AlunoController {
 	}
 
 	@DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteById(@PathVariable Long id) throws ItemNotFoundException {
-		alunoService.delete(id);
+    @ResponseStatus(HttpStatus.OK)
+	public MessageResponseDTO deleteById(@PathVariable Long id) throws ItemNotFoundException {
+		return alunoService.delete(id);
 	}
 	
 	@PutMapping("/{id}")

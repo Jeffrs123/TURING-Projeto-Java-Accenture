@@ -84,7 +84,7 @@ public class NotaService {
 		
 		verifyParameterAndNotePathId(notaId, itemDTO.getId());
 		
-		Nota itemToUpdate = resolverNotaDTO(notaToUpdate, itemDTO);		
+		Nota itemToUpdate = resolverNotaDTO(notaToUpdate, itemDTO);
 		itemToUpdate.resolverNotasEConceito();
 		itemToUpdate.setAluno(aluno);
 		

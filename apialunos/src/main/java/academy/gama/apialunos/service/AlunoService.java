@@ -43,6 +43,7 @@ public class AlunoService {
 			listaItems = alunoRepository.findByNome(nome);
 		}
 		
+		System.out.println("pronto, agora vou retornar a lista");
 		return listaItems.stream()
 				.map(alunoMapper::toDTO)
 				.collect(Collectors.toList())
@@ -55,9 +56,18 @@ public class AlunoService {
 		return alunoMapper.toDTO(itemEncontrado);
 	}
 
-	public void delete (Long id) throws ItemNotFoundException {
+	public MessageResponseDTO delete (Long id) throws ItemNotFoundException {
+		MessageResponseDTO resposta = null;
 		verifyIfAlunoExists(id);
-		alunoRepository.deleteById(id);
+		
+		try {
+			alunoRepository.deleteById(id);
+			resposta = new MessageResponseDTO("Deletado aluno com ID", id);
+			System.out.println("resposta: " + resposta);
+		} catch (Exception e) {
+			System.err.println("[ERRO AO DELETAR]: " + e);
+		}
+		return resposta;
 	}
 
 	public MessageResponseDTO updateById(Long id, AlunoDTO itemDTO ) throws ItemNotFoundException, FiledNotValidException {
